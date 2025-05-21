@@ -45,7 +45,12 @@ void tenth_pixel (char *source_path) {
     int width, height, channel_count;
     unsigned char *data;
 
-    read_image_data(source_path, &data, &width, &height, &channel_count);
-
+    int resultat = read_image_data(source_path, &data, &width, &height, &channel_count);
+    if (resultat){
     printf("tenth_pixel: %d, %d, %d", data[27], data[28], data[29]);
+    }
+    else {
+        printf("ERROR");
+    }
+
 }
