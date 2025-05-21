@@ -43,6 +43,7 @@ void first_pixel (char *source_path) {
 }
 void tenth_pixel (char *source_path) {
     int width, height, channel_count;
+    int pixel = 10;
     unsigned char *data;
 
     int resultat = read_image_data(source_path, &data, &width, &height, &channel_count);
