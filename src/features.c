@@ -20,13 +20,24 @@ void dimension (char *source_path){
     int channel_count;
     unsigned char *data;
     int resultat = read_image_data(source_path, &data, &width, &height, &channel_count);
-    printf("dimension : %d, %d", width, height);
+
+    if (resultat){
+        printf("dimension : %d, %d", width, height);
+    } 
+    else {
+        printf("ERROR");
+    }
 }
 void first_pixel (char *source_path) {
     int width, height, channel_count;
     unsigned char *data;
 
     int result = read_image_data(source_path, &data, &width, &height, &channel_count);
-
-    printf("first_pixel: %d, %d, %d", data[0], data[1], data[2]);
+   
+    if (result){
+        printf("first_pixel: %d, %d, %d", data[0], data[1], data[2]);
+    } 
+    else {
+        printf("ERROR");
+    }
 }
