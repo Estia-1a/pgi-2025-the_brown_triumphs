@@ -47,10 +47,23 @@ void tenth_pixel (char *source_path) {
 
     int resultat = read_image_data(source_path, &data, &width, &height, &channel_count);
     if (resultat){
-    printf("tenth_pixel: %d, %d, %d", data[27], data[28], data[29]);
+    printf("tenth_pixel: %d, %d, %d", data[3*9], data[3*9+1], data[3*9+2]);
     }
     else {
         printf("ERROR");
     }
 
+}
+void second_line(char *source_path) {
+    int width, height, channel_count;
+    unsigned char *data;
+
+    int result = read_image_data(source_path, &data, &width, &height, &channel_count);
+
+    if (result) {
+    printf("second_line: %d, %d, %d", data[3 * width], data[3 * width + 1],  data[3 * width + 2]);
+    }
+    else {
+        printf("ERROR");
+    }
 }
