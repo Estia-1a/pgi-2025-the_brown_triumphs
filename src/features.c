@@ -30,3 +30,11 @@ void first_pixel (char *source_path) {
 
     printf("first_pixel: %d, %d, %d", data[0], data[1], data[2]);
 }
+void tenth_pixel (char *source_path) {
+    int width, height, channel_count;
+    unsigned char *data;
+
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+
+    printf("tenth_pixel: %d, %d, %d", data[27], data[28], data[29]);
+}
