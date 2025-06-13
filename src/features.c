@@ -69,3 +69,30 @@ void second_line(char *source_path) {
     }
     
 }
+
+void max_pixel(char *source_path) {
+
+    int width, height, channel_count;
+    unsigned char *data;
+
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+
+    int max_sum = -1 ;
+    int max_x= 0, max_y = 0;
+    pixelRGB max_pixel ={0, 0, 0};
+
+    for (int y = 0; y <height; y++) {
+        for (int x = 0; x < width; x++ ) {
+            pixelRGB* pixel = get_pixel(data, width, height, channel_count, x, y);
+            int sum = pixel->R + pixel->G + pixel->B;
+
+            if ( sum > max_sum) {
+                max_sum = sum;
+                max_x = x ; 
+                max_y = y;
+                max_pixel = *pixel;
+            }
+        }
+    }
+    printf("max_pixel (%d, %d): %d, %d, %d", max_x, max_y, max_pixel.R, max_pixel.G, max_pixel.B);
+}
