@@ -132,7 +132,9 @@ void max_component(char *source_path, char component) {
 void min_pixel(char *source_path) {
 
     int width, height, channel_count;
-    unsigned char *data;
+    int x = 0;
+    int y = 0;
+    unsigned char *data = NULL;
 
     read_image_data(source_path, &data, &width, &height, &channel_count);
 
@@ -140,12 +142,13 @@ void min_pixel(char *source_path) {
     int min_x= 0, min_y = 0;
     pixelRGB min_pixel ={255, 255, 255};
 
-    for (int y = 0; y <height; y++) {
-        for (int x = 0; x < width; x++ ) {
+
+    for ( y=0; y <height; y++) {
+        for ( x=0; x < width; x++ ) {
             pixelRGB* pixel = get_pixel(data, width, height, channel_count, x, y);
             int sum = pixel->R + pixel->G + pixel->B;
 
-            if ( sum > min_sum) {
+            if ( sum < min_sum) {
                 min_sum = sum;
                 min_x = x ; 
                 min_y = y;
