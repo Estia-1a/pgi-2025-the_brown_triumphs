@@ -96,3 +96,36 @@ void max_pixel(char *source_path) {
     }
     printf("max_pixel (%d, %d): %d, %d, %d", max_x, max_y, max_pixel.R, max_pixel.G, max_pixel.B);
 }
+void max_component(char *source_path, char component) {
+    int width, height, channel_count;
+    unsigned char *data;
+
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+ 
+    int max_value = -1; 
+    int max_x_component = 0, max_y_component = 0 ;
+
+    for (int y = 0; y < height ; y++ ) { 
+        for (int x = 0; x < width; x++) {
+            pixelRGB* pixel = get_pixel(data, width, height, channel_count, x, y);
+            int value ;
+
+            if (component == 'R'){
+                value = pixel->R;
+            } else if (component == 'G') { 
+                value = pixel->G;
+            } else {
+                value = pixel->B;
+            }
+
+            if (value > max_value) { 
+                max_value = value;
+                max_x_component=x; 
+                max_y_component=y;  
+            }
+        }
+
+    }
+    printf("max_component %c ( %d, %d ): %d", component, max_x_component , max_y_component , max_value);
+}
+
