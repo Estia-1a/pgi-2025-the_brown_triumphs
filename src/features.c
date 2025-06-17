@@ -1,5 +1,6 @@
 #include <estia-image.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "features.h"
 #include "utils.h"
@@ -189,5 +190,25 @@ void min_component(char *source_path, char component) {
 
     }
     printf("min_component %c ( %d, %d ): %d", component, min_x_component , min_y_component , min_value);
+}
+
+void color_red(char *source_path) {
+    int width, height, channel_count;
+    unsigned char *data;
+
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+
+    unsigned char *new_data = (unsigned char*)malloc(width * height * channel_count * sizeof(unsigned char));
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            pixelRGB* pixel = get_pixel(data, width, height, channel_count, x, y);
+            unsigned char red = pixel->R;
+            new_data[(y * width + x) * channel_count] = red;
+            new_data[(y * width + x) * channel_count + 1] = 0;
+            new_data[(y * width + x) * channel_count + 2] = 0;
+        }
+    }
+    write_image_data("image_out.bmp", new_data, width, height);
 }
 
