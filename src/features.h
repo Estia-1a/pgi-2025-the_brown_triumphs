@@ -24,4 +24,5 @@ void scale_crop(char *source_path, int center_x, int center_y, int width, int he
 void color_green(char *source_path);
 void color_invert(char *source_path);
 void mirror_horizontal(char *source_path);
+void scale_bilinear(char *source_path, float scale);
 #endif

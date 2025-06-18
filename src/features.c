@@ -488,4 +488,48 @@ void mirror_horizontal(char *source_path){
     free(new_data);
     free_image_data(data);
 }
+void scale_bilinear(char *source_path, float scale) {
+    int original_width, original_height, channel_count;
+    unsigned char *data;
+
+    read_image_data(source_path, &data, &original_width, &original_height, &channel_count);
+
+    int new_width = original_width * scale;
+    int new_height = original_height * scale;
+
+    unsigned char *new_data = (unsigned char*)malloc(new_width * new_height * channel_count * sizeof(unsigned char));
+
+    for (int y = 0; y < new_height; y++) {
+        float gy = (y/ (new_height - 1)) * (original_height - 1);
+        int gyi = gy;
+        int gyi1 = gyi + 1 < original_height ? gyi + 1 : gyi;
+
+        for (int x = 0; x < new_width; x++) {
+            float gx = (x / (new_width - 1)) * (original_width - 1);
+            int gxi = gx;
+            int gxi1 = gxi + 1 < original_width ? gxi + 1 : gxi;
+
+            for (int c = 0; c < channel_count; c++) {
+            
+                float c00 = data[(gyi * original_width + gxi) * channel_count + c];
+                float c10 = data[(gyi * original_width + gxi1) * channel_count + c];
+                float c01 = data[(gyi1 * original_width + gxi) * channel_count + c];
+                float c11 = data[(gyi1 * original_width + gxi1) * channel_count + c];
+
+                float wx = gx - gxi;
+                float wy = gy - gyi;
+
+                float value = c00 * (1 - wx) * (1 - wy) +
+                              c10 * wx * (1 - wy) +
+                              c01 * (1 - wx) * wy +
+                              c11 * wx * wy;
+
+                new_data[(y * new_width + x) * channel_count + c] = value;
+            }
+        }
+    }
+    write_image_data("image_out.bmp", new_data, new_width, new_height);
+    free(new_data);
+    free_image_data(data);
+}
 
