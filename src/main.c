@@ -79,24 +79,27 @@ int main(int argc, char **argv) {
     float scale = atof(argv[5]);
     scale_nearest(configuration.filenames[0], scale);
   }
-if (strncmp(configuration.command, "min_component", 13) == 0) {
+  if (strncmp(configuration.command, "min_component", 13) == 0) {
     min_component(configuration.filenames[0], configuration.arguments[0][0]);
   }  
-if (strncmp(configuration.command, "color_red", 9) == 0) {
+  if (strncmp(configuration.command, "color_red", 9) == 0) {
     color_red(configuration.filenames[0]);
   }  
-if (strncmp(configuration.command, "color_green", 11) == 0) {
+  if (strncmp(configuration.command, "color_green", 11) == 0) {
     color_green(configuration.filenames[0]);
   }  
-if (strncmp(configuration.command, "rotate_acw", 10) == 0) {
+  if (strncmp(configuration.command, "rotate_acw", 10) == 0) {
     rotate_acw(configuration.filenames[0]);
   }  
-if (strncmp(configuration.command, "rotate_cw", 9) == 0) {
+  if (strncmp(configuration.command, "rotate_cw", 9) == 0) {
     rotate_cw(configuration.filenames[0]);
   }
-if (strncmp(configuration.command, "color_blue", 10) == 0){
+  if (strncmp(configuration.command, "color_blue", 10) == 0){
     color_blue(configuration.filenames[0]);
   } 
+  if (strncmp(configuration.command, "color_gray", 10) == 0) {
+    color_gray(configuration.filenames[0]);
+  }
    /* TO COMPLETE
    */
   

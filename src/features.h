@@ -18,5 +18,6 @@ void rotate_cw(char *source_path);
 void color_desaturate(char *source_path);
 void scale_nearest(char *source_path, float scale);
 void color_blue(char *source_path);
+void color_gray(char *source_path);
 
 #endif
