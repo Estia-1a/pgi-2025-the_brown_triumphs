@@ -212,26 +212,6 @@ void color_red(char *source_path) {
     write_image_data("image_out.bmp", new_data, width, height);
 }
 
-void color_green(char *source_path) {
-    int width, height, channel_count;
-    unsigned char *data;
-
-    read_image_data(source_path, &data, &width, &height, &channel_count);
-
-    unsigned char *new_data = (unsigned char*)malloc(width * height * channel_count * sizeof(unsigned char));
-
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            pixelRGB* pixel = get_pixel(data, width, height, channel_count, x, y);
-            unsigned char green = pixel->G;
-            new_data[(y * width + x) * channel_count] = 0;
-            new_data[(y * width + x) * channel_count + 1] = green ;
-            new_data[(y * width + x) * channel_count + 2] = 0;
-        }
-    }
-    write_image_data("image_out.bmp", new_data, width, height);
-}
-
 void rotate_acw(char *source_path) {
     int width, height, channel_count;
     unsigned char *data;
@@ -339,4 +319,3 @@ void scale_nearest(char *source_path,float X){
         printf("Erreur lors de l'ouverture de l'image");
     }
 }
-
