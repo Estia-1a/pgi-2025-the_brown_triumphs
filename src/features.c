@@ -452,3 +452,19 @@ void color_blue(char *source_path) {
     }
     write_image_data("image_out.bmp", new_data, width, height);
 }
+void color_invert(char *source_path) {
+    int width, height, channel_count;
+    unsigned char *data;
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+    unsigned char *new_data = (unsigned char*)malloc(width * height * channel_count * sizeof(unsigned char));
+
+    for (int y=0; y<height; y++){
+        for (int x=0; x<width; x++){
+            pixelRGB* pixel = get_pixel(data, width, height, channel_count, x, y);
+            new_data[(y*width + x) * channel_count]= 255 - pixel->R;
+            new_data[(y*width + x) * channel_count + 1]= 255 - pixel->G;
+            new_data[(y*width + x) * channel_count + 2]= 255 - pixel->B;
+        }
+    }
+    write_image_data("image_out.bmp", new_data, width, height);
+}
