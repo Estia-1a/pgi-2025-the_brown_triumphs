@@ -488,4 +488,23 @@ void mirror_horizontal(char *source_path){
     free(new_data);
     free_image_data(data);
 }
+void mirror_total(char *source_path) {
+    int width, height, channel_count;
+    unsigned char *data;
 
+    read_image_data(source_path, &data, &width, &height, &channel_count);
+
+    unsigned char *new_data = (unsigned char*)malloc(width * height * channel_count * sizeof(unsigned char));
+    for (int y=0; y<height; y++){
+        for (int x=0; x<width; x++){
+            int new_x = width - 1 - x;
+            int new_y = height - 1 - y;
+            for (int c = 0; c< channel_count; c++){
+                new_data[(new_y * width + new_x) * channel_count + c] = data[(y * width + x) * channel_count + c];
+            }
+        }
+    }
+    write_image_data("image_out.bmp", new_data, width, height);
+    free(new_data);
+    free_image_data(data);
+}
