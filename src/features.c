@@ -304,29 +304,39 @@ void color_desaturate(char *source_path) {
     write_image_data("image_out.bmp", new_data, width, height);
 }
 
-void scale_nearest(char *source_path, float scale) {
-    int original_width, original_height, channel_count;
+void scale_nearest(char *source_path,float X){
     unsigned char *data;
-
-    read_image_data(source_path, &data, &original_width, &original_height, &channel_count);
-
-    int new_width = (int)(original_width * scale);
-    int new_height = (int)(original_height * scale);
-
-    unsigned char *new_data = (unsigned char*)malloc(new_width * new_height * channel_count * sizeof(unsigned char));
-
-    for (int y = 0; y < new_height; y++) {
-        int nearest_y = (int)(y / scale);
-        for (int x = 0; x < new_width; x++) {
-            int nearest_x = (int)(x / scale);
-            for (int c = 0; c < channel_count; c++) {
-                new_data[(y * new_width + x) * channel_count + c] = data[(nearest_y * original_width + nearest_x) * channel_count + c];
+    int width, height, channel_count;
+    int resultat = read_image_data(source_path, &data, &width, &height, &channel_count);
+ 
+    if(resultat){
+        int new_width = width*X;
+        int new_height = height*X;
+        unsigned char *scale = malloc(new_height*new_width*channel_count);
+        for(int y=0;y<new_height;y++){
+            for(int x=0;x<new_width;x++){
+                int src_x = (int)(x / X);
+                if (src_x >= width) src_x = width - 1;
+ 
+                int src_y = (int)(y / X);
+                if (src_y >= height) src_y = height - 1;
+                pixelRGB *src_pixel = get_pixel(data, width, height, channel_count, src_x,src_y);
+ 
+                pixelRGB *dst_pixel = get_pixel(scale, new_width, new_height, channel_count, x, y);
+ 
+                *dst_pixel=*src_pixel;
             }
         }
+ 
+        const char *dst_path = "image_out.bmp";
+        resultat = write_image_data(dst_path, scale, new_width, new_height);    
+        if(resultat==0){
+            printf("Erreur lors de l'ouverture du fichier image_out");
+        }
+       
     }
-
-    write_image_data("image_out.bmp", new_data, new_width, new_height);
-    free(new_data);
-    free_image_data(data);
+    else {
+        printf("Erreur lors de l'ouverture de l'image");
+    }
 }
 
