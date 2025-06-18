@@ -87,6 +87,7 @@ int main(int argc, char **argv) {
   }
 
   if (strncmp(configuration.command, "color_green", 11) == 0) {
+    printf("ok");
     color_green(configuration.filenames[0]);
   }
   if (strncmp(configuration.command, "color_blue", 10) == 0) {
@@ -94,6 +95,9 @@ int main(int argc, char **argv) {
   }
   if (strncmp(configuration.command, "color_invert", 12)==0){
     color_invert(configuration.filenames[0]);
+  }
+  if (strncmp(configuration.command, "mirror_horizontal", 17)==0){
+  mirror_horizontal(configuration.filenames[0]);
   }
    /* TO COMPLETE
    */
