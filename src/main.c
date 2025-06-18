@@ -99,8 +99,11 @@ int main(int argc, char **argv) {
   if (strncmp(configuration.command, "mirror_horizontal", 17)==0){
   mirror_horizontal(configuration.filenames[0]);
   }
-    if (strncmp(configuration.command, "mirror_vertical", 12)==0){
+  if (strncmp(configuration.command, "mirror_vertical", 15)==0){
   mirror_vertical(configuration.filenames[0]);
+  }
+  if (strncmp(configuration.command, "mirror_total",12)==0){
+    mirror_total(configuration.filenames[0]);
   }
    if (strncmp(configuration.command, "scale_bilinear", 14) == 0) {
     scale_bilinear(configuration.filenames[0], atof(configuration.arguments[0]));
