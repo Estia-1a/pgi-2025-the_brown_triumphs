@@ -76,6 +76,9 @@ int main(int argc, char **argv) {
     float X = atof(argv[5]);
     scale_nearest(configuration.filenames[0], X);
   }
+  if (strncmp(configuration.command, "scale_crop", 10) == 0) {
+    scale_crop(configuration.filenames[0], atoi(configuration.arguments[0]), atoi(configuration.arguments[1]), atoi(configuration.arguments[2]), atoi(configuration.arguments[3]));  
+  }
    /* TO COMPLETE
    */
   
