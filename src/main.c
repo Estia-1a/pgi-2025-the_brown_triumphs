@@ -43,37 +43,41 @@ int main(int argc, char **argv) {
     tenth_pixel( configuration.filenames[0] );
   }
   if ( strncmp( configuration.command, "second_line", 11 ) == 0 ) {
-    second_line( configuration.filenames[0] );
+      second_line( configuration.filenames[0] );
     }
   if ( strncmp( configuration.command, "print_pixel", 11 ) == 0 ) {
       print_pixel( configuration.filenames[0],atoi(configuration.arguments[0]), atoi(configuration.arguments[1]));
     }
-      if (strncmp(configuration.command, "max_pixel", 9) == 0) {
-    max_pixel(configuration.filenames[0]);
+  if (strncmp(configuration.command, "max_pixel", 9) == 0) {
+      max_pixel(configuration.filenames[0]);
   }
   if (strncmp(configuration.command, "max_component", 13) == 0) {
-    max_component(configuration.filenames[0], configuration.arguments[0][0]);
+      max_component(configuration.filenames[0], configuration.arguments[0][0]);
   }
-      if (strncmp(configuration.command, "min_pixel", 9) == 0) {
-    min_pixel(configuration.filenames[0]);
+  if (strncmp(configuration.command, "min_pixel", 9) == 0) {
+      min_pixel(configuration.filenames[0]);
   }
-if (strncmp(configuration.command, "min_component", 13) == 0) {
-    min_component(configuration.filenames[0], configuration.arguments[0][0]);
-  }  
-if (strncmp(configuration.command, "color_red", 9) == 0) {
-    color_red(configuration.filenames[0]);
-  }  
-if (strncmp(configuration.command, "color_green", 11) == 0) {
-    color_green(configuration.filenames[0]);
-  }  
-if (strncmp(configuration.command, "rotate_acw", 10) == 0) {
-    rotate_acw(configuration.filenames[0]);
-  }  
-if (strncmp(configuration.command, "rotate_cw", 9) == 0) {
-    rotate_cw(configuration.filenames[0]);
-  } 
-if (strncmp(configuration.command, "color_desaturate", 16) == 0) {
-    color_desaturate(configuration.filenames[0]);
+  if (strncmp(configuration.command, "min_component", 13) == 0) {
+      min_component(configuration.filenames[0], configuration.arguments[0][0]);
+    }  
+  if (strncmp(configuration.command, "color_red", 9) == 0) {
+      color_red(configuration.filenames[0]);
+    }  
+  if (strncmp(configuration.command, "color_green", 11) == 0) {
+      color_green(configuration.filenames[0]);
+    }  
+  if (strncmp(configuration.command, "rotate_acw", 10) == 0) {
+      rotate_acw(configuration.filenames[0]);
+    }  
+  if (strncmp(configuration.command, "rotate_cw", 9) == 0) {
+      rotate_cw(configuration.filenames[0]);
+    } 
+  if (strncmp(configuration.command, "color_desaturate", 16) == 0) {
+      color_desaturate(configuration.filenames[0]);
+    }
+  if (strncmp(configuration.command, "scale_nearest", 13) == 0) {
+    float scale = atof(argv[5]);
+    scale_nearest(configuration.filenames[0], scale);
   }
    /* TO COMPLETE
    */

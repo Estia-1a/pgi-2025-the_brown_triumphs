@@ -304,3 +304,29 @@ void color_desaturate(char *source_path) {
     write_image_data("image_out.bmp", new_data, width, height);
 }
 
+void scale_nearest(char *source_path, float scale) {
+    int original_width, original_height, channel_count;
+    unsigned char *data;
+
+    read_image_data(source_path, &data, &original_width, &original_height, &channel_count);
+
+    int new_width = (int)(original_width * scale);
+    int new_height = (int)(original_height * scale);
+
+    unsigned char *new_data = (unsigned char*)malloc(new_width * new_height * channel_count * sizeof(unsigned char));
+
+    for (int y = 0; y < new_height; y++) {
+        int nearest_y = (int)(y / scale);
+        for (int x = 0; x < new_width; x++) {
+            int nearest_x = (int)(x / scale);
+            for (int c = 0; c < channel_count; c++) {
+                new_data[(y * new_width + x) * channel_count + c] = data[(nearest_y * original_width + nearest_x) * channel_count + c];
+            }
+        }
+    }
+
+    write_image_data("image_out.bmp", new_data, new_width, new_height);
+    free(new_data);
+    free_image_data(data);
+}
+
