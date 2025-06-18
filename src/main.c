@@ -73,8 +73,8 @@ int main(int argc, char **argv) {
       color_desaturate(configuration.filenames[0]);
     }
   if (strncmp(configuration.command, "scale_nearest", 13) == 0) {
-    float X = atof(argv[5]);
-    scale_nearest(configuration.filenames[0], X);
+    float scale = atof(argv[5]);
+    scale_nearest(configuration.filenames[0], scale);
   }
   if (strncmp(configuration.command, "scale_crop", 10) == 0) {
     scale_crop(configuration.filenames[0], atoi(configuration.arguments[0]), atoi(configuration.arguments[1]), atoi(configuration.arguments[2]), atoi(configuration.arguments[3]));  
