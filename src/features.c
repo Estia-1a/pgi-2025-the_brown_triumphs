@@ -488,3 +488,4 @@ void mirror_horizontal(char *source_path){
     free(new_data);
     free_image_data(data);
 }
+
