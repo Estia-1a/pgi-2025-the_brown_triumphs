@@ -285,29 +285,49 @@ void color_desaturate(char *source_path) {
 }
 
 void scale_nearest(char *source_path, float scale) {
-    int original_width, original_height, channel_count;
-    unsigned char *data;
-
-    read_image_data(source_path, &data, &original_width, &original_height, &channel_count);
-
-    int new_width = (int)(original_width * scale);
-    int new_height = (int)(original_height * scale);
-
-    unsigned char *new_data = (unsigned char*)malloc(new_width * new_height * channel_count * sizeof(unsigned char));
-
+    int width, height, channels;
+    unsigned char *data = NULL;
+ 
+    if (!read_image_data(source_path, &data, &width, &height, &channels)) {
+        fprintf(stderr, "Erreur : lecture de l'image échouée.\n");
+        return;
+    }
+ 
+    int new_width = (int)(width * scale);
+    int new_height = (int)(height * scale);
+    unsigned char *scaled_data = malloc(new_width * new_height * channels);
+ 
+    if (!scaled_data) {
+        fprintf(stderr, "Erreur : mémoire insuffisante.\n");
+        free(data);
+        return;
+    }
+ 
     for (int y = 0; y < new_height; y++) {
-        int nearest_y = (int)(y / scale);
         for (int x = 0; x < new_width; x++) {
-            int nearest_x = (int)(x / scale);
-            for (int c = 0; c < channel_count; c++) {
-                new_data[(y * new_width + x) * channel_count + c] = data[(nearest_y * original_width + nearest_x) * channel_count + c];
+            int src_x = (int)(x / scale + 0.5f);
+            int src_y = (int)(y / scale + 0.5f);
+ 
+            if (src_x >= width) src_x = width - 1;
+            if (src_y >= height) src_y = height - 1;
+ 
+            for (int c = 0; c < channels; c++) {
+                int dest_index = (y * new_width + x) * channels + c;
+                int src_index = (src_y * width + src_x) * channels + c;
+                scaled_data[dest_index] = data[src_index];
             }
         }
     }
-
-    write_image_data("image_out.bmp", new_data, new_width, new_height);
-    free(new_data);
-    free_image_data(data);
+ 
+    if (write_image_data("image_out.bmp", scaled_data, new_width, new_height) != 0) {
+        fprintf(stderr, "Erreur : écriture de l'image échouée.\n");
+    }
+ 
+    free(data);
+    free(scaled_data);
+}
+float lerp(float a, float b, float t) {
+    return a + t * (b - a);
 }
 
 void mirror_vertical(char *source_path) {
@@ -552,4 +572,3 @@ void scale_bilinear(char *source_path, float scale) {
     free(new_data);
     free_image_data(data);
 }
-
